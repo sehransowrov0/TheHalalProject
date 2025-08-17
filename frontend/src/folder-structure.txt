@@ -1,0 +1,78 @@
+my-app/src/
+├─ app/                     # Global app setup
+│  ├─ store.ts              # Redux Toolkit / Zustand store for global state
+│  └─ routes.tsx            # Centralized route definitions
+│
+├─ assets/                  # Static files (images, icons, fonts)
+│  ├─ images/               # Logos, banners, placeholders
+│  └─ icons/                # SVG icons or icon sets
+│
+├─ components/              # Atomic/Reusable components
+│  ├─ atoms/                # Smallest building blocks (single-purpose UI)
+│  │  ├─ Button.tsx         # Simple button component
+│  │  ├─ Input.tsx          # Simple input field
+│  │  └─ Icon.tsx           # Single icon component
+│  │
+│  ├─ molecules/            # Combinations of atoms (small UI sections)
+│  │  ├─ Card.tsx           # Card component
+│  │  ├─ Modal.tsx          # Modal dialog
+│  │  └─ FormField.tsx      # Input + label combo
+│  │
+│  ├─ organisms/            # Larger UI sections composed of molecules & atoms
+│  │  ├─ Navbar.tsx         # Navigation bar
+│  │  ├─ Sidebar.tsx        # Sidebar menu
+│  │  └─ Footer.tsx         # Page footer
+│  │
+│  ├─ templates/            # Page-level layouts made of organisms
+│  │  ├─ DashboardTemplate.tsx  # Layout for dashboard pages
+│  │  └─ AuthTemplate.tsx       # Layout for auth pages
+│  │
+│  └─ shared/               # Components shared across features/pages
+│     ├─ Loader.tsx         # Loading spinner
+│     ├─ Toast.tsx          # Notification component
+│     └─ Tooltip.tsx        # Tooltip helper
+│
+├─ features/                # Feature-specific logic, API, state, components
+│  ├─ auth/
+│  │  ├─ api.ts             # Auth API calls
+│  │  ├─ authSlice.ts       # Redux slice / Zustand store
+│  │  ├─ components/        # Feature-specific components (AuthForm)
+│  │  │  └─ AuthForm.tsx
+│  │  └─ pages/             # Feature pages (LoginPage)
+│  │     └─ LoginPage.tsx
+│  │
+│  └─ user/
+│     ├─ api.ts             # User API calls
+│     └─ userSlice.ts       # User state slice
+│
+├─ hooks/                   # Custom React hooks
+│  └─ useAuth.ts            # Example: hook for authentication logic
+│
+├─ layouts/                 # Layout wrappers
+│  ├─ MainLayout.tsx        # Layout for main app pages
+│  └─ AuthLayout.tsx        # Layout for authentication pages
+│
+├─ pages/                   # Route-level pages
+│  ├─ Home/Home.tsx         # Home page component
+│  ├─ About/About.tsx       # About page component
+│  └─ NotFound/NotFound.tsx # 404 page
+│
+├─ services/                # API clients / business logic
+│  └─ apiClient.ts          # Axios or fetch wrapper
+│
+├─ utils/                   # Utility/helper functions
+│  └─ formatDate.ts         # Example: date formatting
+│
+├─ constants/               # App-wide constants
+│  └─ routes.ts             # Route paths, config values
+│
+├─ types/                   # TypeScript types/interfaces
+│  └─ index.d.ts            # Example: User, Product, AuthResponse
+│
+├─ styles/                  # Global & Tailwind styles
+│  ├─ globals.css
+│  └─ tailwind.css
+│
+├─ App.tsx                  # Root App component
+└─ main.tsx                 # ReactDOM entry point
+
