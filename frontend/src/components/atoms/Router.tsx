@@ -8,7 +8,7 @@ import Market from '@/pages/Market'
 import Setting from '@/pages/Setting'
 import Navbar from '@/components/organisms/Navbar'
 import SighnUp from "@/pages/SighnUp"
-import Login2 from "@/pages/Login2"
+import Login from "@/pages/Login"
 
 
 export default createBrowserRouter([
@@ -22,7 +22,7 @@ export default createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login2 />
+    element: <Login />
   },
   {
     path: "/home",

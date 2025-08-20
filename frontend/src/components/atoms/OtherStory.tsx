@@ -1,17 +1,7 @@
 import Image1 from '@/assets/images/Image1.jpg'
-import Image2 from '@/assets/images/Image2.jpg'
-import Image3 from '@/assets/images/Image3.jpg'
-import Image4 from '@/assets/images/Image4.jpg'
-import Image5 from '@/assets/images/Image5.jpg'
-import Image6 from '@/assets/images/Image6.jpg'
 
 const images: ImageItem[] = [
   { id: 1, img: Image1 },
-  { id: 2, img: Image2 },
-  { id: 3, img: Image3 },
-  { id: 4, img: Image4 },
-  { id: 5, img: Image5 },
-  { id: 6, img: Image6 },
 ]
 
 interface ImageItem {
