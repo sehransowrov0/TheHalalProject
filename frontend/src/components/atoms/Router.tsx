@@ -9,7 +9,7 @@ import Setting from '@/pages/Setting'
 import Navbar from '@/components/organisms/Navbar'
 import SighnUp from "@/pages/SighnUp"
 import Login from "@/pages/Login"
-
+import { Card } from "../ui/card"
 
 
 export default createBrowserRouter([
@@ -23,7 +23,7 @@ export default createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />
+    element: <Card />
   },
   {
     path: "/home",
