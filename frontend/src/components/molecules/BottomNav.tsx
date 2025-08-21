@@ -1,35 +1,19 @@
-import { NavLink } from "react-router-dom";
-import { GrHome, GrHomeRounded } from "react-icons/gr";
-import { CgProfile } from "react-icons/cg";
-import { LiaUserFriendsSolid } from "react-icons/lia";
-import { RiFolderVideoLine } from "react-icons/ri";
-import { MdOutlineStorefront } from "react-icons/md";
-import { IoNotificationsOutline } from "react-icons/io5";
+import { RiBookOpenFill, RiUserFill, RiUserLine } from "react-icons/ri";
 import NavIcon from "../atoms/NavIcon";
+import { FiBell, FiBookOpen, FiShoppingCart, FiUser, FiUsers, FiVideo } from "react-icons/fi";
+import { HiBell, HiOutlineBell, HiOutlineShoppingCart, HiOutlineUsers, HiOutlineVideoCamera, HiShoppingCart, HiUsers, HiVideoCamera } from 'react-icons/hi2'
 
 {/* bottom navbar container */ }
 
 export default function BottomNav() {
   return (
-    <div className="p-2 flex justify-between absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
-      <NavLink to='/'>
-        <NavIcon icon={<GrHome />} />
-      </NavLink>
-      <NavLink to='/profile'>
-        <NavIcon icon={<CgProfile />} />
-      </NavLink>
-      <NavLink to='/friends'>
-        <NavIcon icon={<LiaUserFriendsSolid />} />
-      </NavLink>
-      <NavLink to='/notifications'>
-        <NavIcon icon={<IoNotificationsOutline />} />
-      </NavLink>
-      <NavLink to='/video'>
-        <NavIcon icon={<RiFolderVideoLine />} />
-      </NavLink>
-      <NavLink to='/market'>
-        <NavIcon icon={<MdOutlineStorefront />} />
-      </NavLink>
+    <div className="p-2 flex justify-between absolute bottom-0 left-0 right-0 bg-white border border-gray-200 z-50 w-[95%] mx-auto rounded-xl">
+      <NavIcon link="/" icon={<FiBookOpen />} filledIcon={<RiBookOpenFill />} />
+      <NavIcon link="/profile" icon={<RiUserLine />} filledIcon={<RiUserFill />} />
+      <NavIcon link="/friends" icon={<HiOutlineUsers />} filledIcon={<HiUsers />} />
+      <NavIcon link="/notifications" icon={<HiOutlineBell />} filledIcon={<HiBell />} />
+      <NavIcon link="/video" icon={<HiOutlineVideoCamera />} filledIcon={<HiVideoCamera />} />
+      <NavIcon link="/market" icon={<HiOutlineShoppingCart />} filledIcon={<HiShoppingCart} />
     </div>
 
   )
