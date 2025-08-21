@@ -13,7 +13,7 @@ export default function BottomNav() {
       <NavIcon link="/friends" icon={<HiOutlineUsers />} filledIcon={<HiUsers />} />
       <NavIcon link="/notifications" icon={<HiOutlineBell />} filledIcon={<HiBell />} />
       <NavIcon link="/video" icon={<HiOutlineVideoCamera />} filledIcon={<HiVideoCamera />} />
-      <NavIcon link="/market" icon={<HiOutlineShoppingCart />} filledIcon={<HiShoppingCart} />
+      <NavIcon link="/market" icon={<HiOutlineShoppingCart />} filledIcon={<HiShoppingCart />} />
     </div>
 
   )
