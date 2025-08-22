@@ -7,7 +7,7 @@ import { RiMenu4Fill } from "react-icons/ri"
 
 export default function TopNav() {
   return (
-    < div className="bg-blue-900 text-white text-xl p-2 font-edu flex justify-between" >
+    < div className="bg-primary h-12 text-primary-foreground text-xl p-2 font-edu flex justify-between items-center w-[95%] mx-auto rounded-xl" >
       <span>Projecthalal</span>
       <div className="flex gap-2">
         <span><IoIosSearch className="h-6 w-6 " /></span>

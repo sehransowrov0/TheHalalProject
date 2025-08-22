@@ -7,7 +7,7 @@ import { HiBell, HiOutlineBell, HiOutlineShoppingCart, HiOutlineUsers, HiOutline
 
 export default function BottomNav() {
   return (
-    <div className="p-2 flex justify-between absolute bottom-0 left-0 right-0 bg-white border border-gray-200 z-50 w-[95%] mx-auto rounded-xl">
+    <div className="p-2 flex justify-between absolute bottom-0 left-0 right-0 bg-background border border-border z-50 w-[95%] mx-auto rounded-xl">
       <NavIcon link="/" icon={<FiBookOpen />} filledIcon={<RiBookOpenFill />} />
       <NavIcon link="/profile" icon={<RiUserLine />} filledIcon={<RiUserFill />} />
       <NavIcon link="/friends" icon={<HiOutlineUsers />} filledIcon={<HiUsers />} />
