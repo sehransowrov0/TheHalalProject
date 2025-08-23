@@ -1,0 +1,125 @@
+import * as React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
+import { User } from "lucide-react";
+
+/**
+ * ProfileIcon — a Facebook-like profile avatar built with shadcn/ui.
+ *
+ * Features:
+ *  - Circle avatar with optional Facebook-style story ring
+ *  - Optional online status dot
+ *  - Size variants (xs, sm, md, lg, xl)
+ *  - Neutral, non-gendered fallback (icon or initials)
+ *
+ * Usage:
+ *  <ProfileIcon name="Sehran Sowrov" src={undefined} showStoryRing online size="md" />
+ */
+export default function ProfileIcon({
+  src,
+  alt,
+  name = "",
+  size = "md",
+  showStoryRing = false,
+  online = false,
+  fallback = "icon", // "icon" | "initials"
+  className,
+}: {
+  src?: string;
+  alt?: string;
+  name?: string;
+  /** xs:24, sm:32, md:40, lg:56, xl:72 */
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  /** Show Facebook-like story ring */
+  showStoryRing?: boolean;
+  /** Show a small online presence dot */
+  online?: boolean;
+  /** Fallback style when no src: "icon" (neutral) or "initials" */
+  fallback?: "icon" | "initials";
+  className?: string;
+}) {
+  const sizeMap: Record<typeof size, string> = {
+    xs: "h-6 w-6 text-[10px]",
+    sm: "h-8 w-8 text-[11px]",
+    md: "h-10 w-10 text-[12px]",
+    lg: "h-14 w-14 text-[14px]",
+    xl: "h-18 w-18 text-[16px]", // Tailwind doesn't have h-18 by default; add via theme or use inline style
+  } as const;
+
+  // If your Tailwind config doesn't include h-18/w-18, we fall back inline.
+  const needsInline = size === "xl";
+
+  const initials = React.useMemo(() => {
+    if (!name) return "";
+    return name
+      .split(" ")
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((n) => n[0]?.toUpperCase())
+      .join("");
+  }, [name]);
+
+  return (
+    <div className={cn("relative inline-block", className)}>
+      {/* Story ring wrapper */}
+      <div
+        className={cn(
+          "rounded-full p-[2px]",
+          showStoryRing
+            ? "bg-[conic-gradient(from_180deg_at_50%_50%,#1877F2_0deg,#42B72A_120deg,#F02849_240deg,#1877F2_360deg)]"
+            : "bg-transparent"
+        )}
+        style={needsInline && showStoryRing ? { width: 76, height: 76 } : undefined}
+      >
+        <div className={cn("rounded-full bg-background p-[2px]")}
+          style={needsInline && showStoryRing ? { width: 72, height: 72 } : undefined}
+        >
+          <Avatar
+            className={cn(
+              "rounded-full border bg-card text-card-foreground shadow-sm",
+              sizeMap[size],
+              needsInline && size === "xl" ? "" : undefined
+            )}
+            style={needsInline && size === "xl" ? { width: 72, height: 72 } : undefined}
+          >
+            <AvatarImage src={src} alt={alt ?? name} />
+            <AvatarFallback className="flex items-center justify-center">
+              {fallback === "initials" && initials ? (
+                <span className="font-medium tracking-wide">{initials}</span>
+              ) : (
+                <User className="h-1/2 w-1/2 opacity-70" aria-hidden />
+              )}
+            </AvatarFallback>
+          </Avatar>
+        </div>
+      </div>
+
+      {/* Online dot */}
+      {online && (
+        <span
+          className={cn(
+            "absolute bottom-0 right-0 block rounded-full ring-2 ring-background",
+            size === "xs" && "h-2 w-2",
+            size === "sm" && "h-2.5 w-2.5",
+            size === "md" && "h-3 w-3",
+            size === "lg" && "h-3.5 w-3.5",
+            size === "xl" && "h-4 w-4",
+            "bg-[#31A24C]" // Facebook-like green
+          )}
+        />
+      )}
+    </div>
+  );
+}
+
+// Optional: a simple row of examples for quick preview in Storybook/Playground
+export function DemoProfileIconRow() {
+  return (
+    <div className="flex items-center gap-6 p-6">
+      <ProfileIcon name="Alex Doe" size="sm" fallback="icon" />
+      <ProfileIcon name="Alex Doe" size="md" showStoryRing fallback="initials" />
+      <ProfileIcon name="Alex Doe" size="lg" online />
+      <ProfileIcon name="Alex Doe" size="xl" showStoryRing online />
+    </div>
+  );
+}
