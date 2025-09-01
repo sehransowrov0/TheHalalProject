@@ -5,24 +5,28 @@
   "type": "module",
   "main": "./src/server.ts",
   "scripts": {
-    "dev": "nodemon --watch src --ext ts --exec ts-node src/index.ts",
+    "dev": "nodemon --watch src --ext ts --exec ts-node src/server.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "Uthman",
   "license": "ISC",
-  "packageManager": "pnpm@10.15.0",
+  "packageManager": "npm",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
-    "mongoose": "^8.18.0"
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.0",
+    "nodemailer": "^7.0.6"
   },
   "devDependencies": {
-    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.3.0",
-    "nodemon": "^3.1.10",
+    "@types/nodemailer": "^7.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }

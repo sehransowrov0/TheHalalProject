@@ -7,18 +7,37 @@ import Videoes from '@/pages/Videoes'
 import Market from '@/pages/Market'
 import Setting from '@/pages/Setting'
 import Navbar from '@/components/organisms/Navbar'
-import SighnUp from "@/pages/SighnUp"
 import Login from "@/pages/Login"
+import NewRegister from '@/pages/NewRegister'
+import PrivateRoute from "./PrivateRouter"
+import ProfilePage from "@/pages/ProfilePage"
 
 
 export default createBrowserRouter([
   {
-    path: "/",
+    path: "/home",
     element: <><Navbar /><Home /></>
   },
   {
-    path: "/sighnup",
-    element: <SighnUp />
+    path: "/",
+    element: (
+      <PrivateRoute>
+        <Navbar />
+        <Home />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/profile",
+    element: (
+      <PrivateRoute>
+        <ProfilePage />
+      </PrivateRoute>
+  ),
+  },
+  {
+    path: "/register",
+    element: <NewRegister />
   },
   {
     path: "/login",

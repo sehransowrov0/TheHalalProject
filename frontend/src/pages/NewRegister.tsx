@@ -5,14 +5,8 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useNavigate } from "react-router-dom";
 
-export default function LoginForm() {
-
-
-// inside component
-  const navigate = useNavigate();
-
+export default function RegisterForm() {
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -31,18 +25,11 @@ export default function LoginForm() {
     setMessage("");
 
     try {
-      const res = await axios.post("http://127.0.0.1:5000/login", form);
-
-      // store JWT token in localStorage
-      localStorage.setItem("token", res.data.token);
-
-      setMessage(res.data.message || "Login successful ✅");
-      navigate("/")
-    }
-
-    catch (err: any) {
-      setMessage(err.response?.data?.message || "Login failed ❌");
-    } finally {
+      const res = await axios.post("http://127.0.0.1:5000/register", form);
+        setMessage(res.data.message || "Registered successfully ✅");
+      } catch (err: any) {
+        setMessage(err.response?.data?.message || "Something went wrong ❌");
+      } finally {
       setLoading(false);
     }
   };
@@ -50,7 +37,7 @@ export default function LoginForm() {
   return (
     <Card className="w-full max-w-sm mx-auto mt-10 shadow-lg">
       <CardHeader>
-        <CardTitle className="text-xl">Login</CardTitle>
+        <CardTitle className="text-xl">Register</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -71,7 +58,7 @@ export default function LoginForm() {
             required
           />
           <Button type="submit" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "Registering..." : "Register"}
           </Button>
         </form>
         {message && (

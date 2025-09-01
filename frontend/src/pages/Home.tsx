@@ -1,14 +1,23 @@
-import TopPosts from "@/components/molecules/TopPosts.tsx.txt";
 import Story from "@/components/organisms/Story";
-import PostCard from "@/components/molecules/PostCard"
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Home() {
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // remove JWT
+    navigate("/login"); // redirect to login
+  };
+
   return (
     <main className="bg-background pt-1 flex flex-col gap-1 ">
       <Story />
-      <TopPosts textContent="hello" />
-      <PostCard />
+      <Button className="mt-4" onClick={handleLogout}>
+        Logout
+      </Button>
     </main>
   )
 }
