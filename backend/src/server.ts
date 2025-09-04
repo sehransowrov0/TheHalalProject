@@ -102,6 +102,7 @@ function authMiddleware(req: any, res: any, next: any) {
   }
 }
 
+
 // Protected /profile route
 app.get("/profile", authMiddleware, async (req: any, res) => {
   try {
@@ -111,79 +112,6 @@ app.get("/profile", authMiddleware, async (req: any, res) => {
     res.status(200).json({ user });
   } catch (err: any) {
     res.status(400).json({ message: err.message });
-  }
-});
-
-import crypto from "crypto";
-import nodemailer from "nodemailer";
-
-
-
-const otpStore = new Map<string, string>(); // store OTP temporarily
-
-// nodemailer setup
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: false,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
-
-// Step 1: Request OTP
-app.post("/request-otp", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res.status(400).json({ message: "Email and password required" });
-    }
-
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "Email already exists ❌" });
-    }
-
-    // generate 6-digit OTP
-    const otp = crypto.randomInt(100000, 999999).toString();
-    otpStore.set(email, otp);
-
-    // send OTP email
-    await transporter.sendMail({
-      from: process.env.SMTP_USER,
-      to: email,
-      subject: "Your OTP Code",
-      text: `Your OTP code is ${otp}. It will expire in 5 minutes.`,
-    });
-
-    setTimeout(() => otpStore.delete(email), 5 * 60 * 1000); // expire OTP in 5 min
-
-    res.status(200).json({ message: "OTP sent to email ✅" });
-  } catch (err: any) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-// Step 2: Verify OTP and register
-app.post("/verify-otp", async (req, res) => {
-  try {
-    const { email, password, otp } = req.body;
-
-    if (!otpStore.has(email) || otpStore.get(email) !== otp) {
-      return res.status(400).json({ message: "Invalid or expired OTP ❌" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ email, password: hashedPassword });
-    await user.save();
-
-    otpStore.delete(email); // remove OTP after successful registration
-
-    res.status(200).json({ message: "Registered successfully ✅" });
-  } catch (err: any) {
-    res.status(500).json({ message: err.message });
   }
 });
 
