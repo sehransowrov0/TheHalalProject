@@ -1,4 +1,6 @@
 // server.ts
+
+import {app} from './app.ts'
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -9,46 +11,12 @@ import User from "./models/user.model.ts";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
 
-
-
 dotenv.config();
 
-const app = express();
-app.use(express.json());
-app.use(cors());
 
-// connect database
 await connectDb();
 
-/**
- * Register route
- */
-app.post("/register", async (req, res) => {
-  try {
-    const { email, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({ message: "Email and password are required ❌" });
-    }
-
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "Email already exists ❌" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ email, password: hashedPassword });
-    await user.save();
-
-    res.status(200).json({ message: "Registered successfully ✅" });
-  } catch (err: any) {
-    res.status(400).json({ message: err.message });
-  }
-});
-
-/**
- * Login route
- */
 app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
