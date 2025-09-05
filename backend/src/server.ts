@@ -17,44 +17,6 @@ dotenv.config();
 await connectDb();
 
 
-app.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res.status(400).json({ message: "Email and password are required ❌" });
-    }
-
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ message: "Invalid email or password ❌" });
-    }
-
-    // compare passwords
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: "Invalid email or password ❌" });
-    }
-
-    // generate JWT
-    const token = jwt.sign(
-      { id: user._id, email: user.email },
-      process.env.JWT_SECRET as string,
-      { expiresIn: "1h" } // expires in 1 hour
-    );
-
-    res.status(200).json({
-      message: "Login successful ✅",
-      token,
-      user: { id: user._id, email: user.email },
-  });
-} catch (err: any) {
-  res.status(400).json({ message: err.message });
-}
-});
-
-
-
 // Middleware to verify JWT
 function authMiddleware(req: any, res: any, next: any) {
   const authHeader = req.headers.authorization;
