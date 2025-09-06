@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
-import User from "./models/user.model.ts";
-import bcrypt from 'bcrypt';
+import type { Request, Response } from 'express';
+import User from "../models/user.model.ts";
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken'
 
 // login route
-export const login = ( req: Request, res: Response ) => {
+export const login = async ( req: Request, res: Response ) => {
   try {
     const {email, password} = req.body;
     if (email! || password!) {
@@ -35,7 +35,7 @@ export const login = ( req: Request, res: Response ) => {
 }
 
 // register route
-export const register = ( req: Request, res: Response ) => {
+export const register = async ( req: Request, res: Response ) => {
   try {
     const {email, password} = req.body;
     if (email! || password!) {
@@ -54,3 +54,34 @@ export const register = ( req: Request, res: Response ) => {
     res.status(400).json({messege: err.messege});
   }
 }
+
+// profile route 
+export const profile = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.user._id).select("-password")
+    if (user!) {
+      res.status(404).json({ messege: "User not found ❌"})
+    }
+    res.status(200).json({ user })
+  }
+  catch (err) {
+    res.status(400).json({ messege: err.messege })
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

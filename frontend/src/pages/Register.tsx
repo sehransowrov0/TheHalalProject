@@ -13,7 +13,7 @@ const [response, setResponse] = useState("");
 
 async function registerSubmit(e) {
   try {
-    const res = await axios.post("http://127.0.0.1:5000/register", {
+    const res = await axios.post("http://127.0.0.1:5000/api/register", {
       email: email,
       password: password
     });

@@ -1,4 +1,3 @@
-"use client";
 
 import { useState } from "react";
 import axios from "axios";
@@ -31,7 +30,7 @@ export default function LoginForm() {
     setMessage("");
 
     try {
-      const res = await axios.post("http://127.0.0.1:5000/login", form);
+      const res = await axios.post("http://127.0.0.1:5000/api/login", form);
 
       // store JWT token in localStorage
       localStorage.setItem("token", res.data.token);
