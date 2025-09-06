@@ -1,9 +1,23 @@
 import type { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
+
+
+interface AuthPayload extends JwtPayload {
+  id: string;
+  email: string;
+}
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: AuthPayload;
+    }
+  }
+}
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const authHedder = req.headers.authorization;
-  if (authorization!) { 
+  if (!authHedder) {
     return res.status(401).json({ message: "Unauthorized ❌"});
   }
 

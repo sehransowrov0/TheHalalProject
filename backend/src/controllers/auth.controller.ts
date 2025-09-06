@@ -7,16 +7,16 @@ import jwt from 'jsonwebtoken'
 export const login = async ( req: Request, res: Response ) => {
   try {
     const {email, password} = req.body;
-    if (email! || password!) {
-      return res.status(400).json({messege: "Email and password are required ❌"});
+    if (!email || !password) {
+      return res.status(400).json({message: "Email and password are required ❌"});
     }
     const user = await User.findOne({email});
-    if (user!) {
-      return res.status(400).json({messege: "Invalid email or password"});
+    if (!user) {
+      return res.status(400).json({message: "Invalid email or password"});
     }
     const isMatch = await bcrypt.compare(password, user.password);
-    if (isMatch!) {
-      res.status(200).json({messege: "Invalid email or password ❌"})
+    if (!isMatch) {
+      res.status(200).json({message: "Invalid email or password ❌"})
     }
     const token = jwt.sign(
       {id: user._id, email: user.email},
@@ -24,13 +24,13 @@ export const login = async ( req: Request, res: Response ) => {
       {expiresIn: "1h"}
     );
     res.status(200).json({
-      messege: "login successfull",
+      message: "login successfull ✅",
       token,
       user: {id: user._id, email: user.email}
     })
   }
   catch (err) {
-    res.status(400).json({messege: err.messege});
+    res.status(400).json({message: err.message});
   }
 }
 
@@ -38,20 +38,21 @@ export const login = async ( req: Request, res: Response ) => {
 export const register = async ( req: Request, res: Response ) => {
   try {
     const {email, password} = req.body;
-    if (email! || password!) {
-      return res.status(400).json({messege: "Email and password are required ❌"});
+    if (!email || !password) {
+      return res.status(400).json({message: "Email and password are required ❌"});
     }
     const existingUser = await User.findOne({email});
     if (existingUser) {
-      return res.status(400).json({messege: "User is already exist ❌"});
+      return res.status(400).json({message: "User already exist ❌"});
     }
-    const hashPassword = await bcrypt.hash(password, 10);
-    const user = new User({email, password: hashPassword});
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({email, password: hashedPassword});
     await user.save();
-    res.status(200).json({messege: "Registered successfully ✅"});
+    res.status(201).json({message: "Registered successfully ✅"});
   }
   catch (err) {
-    res.status(400).json({messege: err.messege});
+    res.status(400).json({message: err.message});
+    console.error("❌ Registration error:", err);
   }
 }
 
@@ -59,7 +60,7 @@ export const register = async ( req: Request, res: Response ) => {
 export const profile = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.user._id).select("-password")
-    if (user!) {
+    if (!user) {
       res.status(404).json({ messege: "User not found ❌"})
     }
     res.status(200).json({ user })

@@ -7,20 +7,23 @@ import { useState } from "react";
 export default function SighnUp() {
 
 
-  const [email, setEmail] = useState("");
+const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 const [response, setResponse] = useState("");
 
 async function registerSubmit(e) {
+  e.preventDefault();
   try {
     const res = await axios.post("http://127.0.0.1:5000/api/register", {
       email: email,
       password: password
     });
-    setResponse(res.data);
-  } catch (err) {
+    setResponse(res.data.message);
+  } 
+
+catch (err) {
     if (err.response) {
-      setResponse(err.response.data);
+      setResponse(err.response.data.message);
     } else {
       setResponse({ error: err.message });
     }
@@ -30,7 +33,7 @@ async function registerSubmit(e) {
 
   return (
     <div>
-      <form>
+      <form onSubmit={registerSubmit}>
         <div>
           <label>Email address</label>
           <input
@@ -49,7 +52,6 @@ async function registerSubmit(e) {
             onChange={e => setPassword(e.target.value)}
           />
           <Button
-            onSubmit={registerSubmit}
             type="submit"
             size="lg"
             variant="default"
@@ -58,6 +60,8 @@ async function registerSubmit(e) {
           </Button>
         </div>
       </form>
+	{/* ✅ Show response from backend */}
+      	{response && <p>{response}</p>}
     </div>
   );
 }
