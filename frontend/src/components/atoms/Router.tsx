@@ -8,7 +8,7 @@ import Market from '@/pages/Market'
 import Setting from '@/pages/Setting'
 import Navbar from '@/components/organisms/Navbar'
 import Login from "@/pages/Login"
-import NewRegister from '@/pages/NewRegister'
+import Register from '@/pages/Register'
 import PrivateRoute from "./PrivateRouter"
 import ProfilePage from "@/pages/ProfilePage"
 
@@ -33,11 +33,11 @@ export default createBrowserRouter([
       <PrivateRoute>
         <ProfilePage />
       </PrivateRoute>
-  ),
+    ),
   },
   {
     path: "/register",
-    element: <NewRegister />
+    element: <Register />
   },
   {
     path: "/login",

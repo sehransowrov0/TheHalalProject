@@ -10,3 +10,4 @@ router.post('/register', register);
 router.get('/profile', authMiddleware, profile)
 
 export default router
+
