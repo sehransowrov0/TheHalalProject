@@ -10,13 +10,25 @@ import Navbar from '@/components/organisms/Navbar'
 import Login from "@/pages/Login"
 import Register from '@/pages/Register'
 import PrivateRoute from "./PrivateRouter"
-import ProfilePage from "@/pages/ProfilePage"
 
 
 export default createBrowserRouter([
   {
+    path: "/register",
+    element: <Register />
+  },
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
     path: "/home",
-    element: <><Navbar /><Home /></>
+    element: (
+      <PrivateRoute>
+        <Navbar />
+        <Home />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/",
@@ -31,45 +43,54 @@ export default createBrowserRouter([
     path: "/profile",
     element: (
       <PrivateRoute>
-        <ProfilePage />
+        <Profile />
       </PrivateRoute>
     ),
   },
   {
-    path: "/register",
-    element: <Register />
-  },
-  {
-    path: "/login",
-    element: <Login />
-  },
-  {
-    path: "/home",
-    element: <><Navbar /><Home /> </>
-  },
-  {
-    path: "/profile",
-    element: <><Navbar /><Profile /></>
-  },
-  {
     path: "/Friends",
-    element: <><Navbar /><Friends /></>
+    element: (
+      <PrivateRoute>
+        <Navbar />
+        <Friends />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/notifications",
-    element: <><Navbar /><Notifications /></>
+    element: (
+      <PrivateRoute>
+        <Navbar />
+        <Notifications />
+      </PrivateRoute>
+    )
   },
   {
     path: "/video",
-    element: <><Navbar /><Videoes /></>
+    element: (
+      <PrivateRoute>
+        <Navbar />
+        <Videoes />
+      </PrivateRoute>
+    )
   },
   {
     path: "/market",
-    element: <><Navbar /><Market /></>
+    element: (
+      <PrivateRoute>
+        <Navbar />
+        <Market />
+      </PrivateRoute>
+    )
   },
   {
     path: "/setting",
-    element: <><Navbar /><Setting /></>
+    element: (
+      <PrivateRoute>
+        <Navbar />
+        <Setting />
+      </PrivateRoute>
+    )
   }
 ])
 
